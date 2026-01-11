@@ -1,5 +1,6 @@
 package com.eduai.service;
 
+import com.eduai.model.AiScore;
 import com.eduai.model.EvaluationHistory;
 import org.springframework.stereotype.Service;
 
@@ -11,28 +12,33 @@ public class AiEvaluationService {
 
     private final List<EvaluationHistory> history = new ArrayList<>();
 
-    public String evaluate(String student, String answer, String key) {
-        // Dummy AI logic (already exists)
-        String result = """
-        Score: 8/10
-        Strengths: Clear understanding
-        Improvements: Add examples
-        Confidence: High
+    public EvaluationHistory evaluate(
+            String student,
+            String studentAnswer,
+            String answerKey
+    ) {
+        // Dummy AI logic (replace later with real LLM)
+        AiScore score = new AiScore(
+                3, // accuracy
+                2, // clarity
+                2, // examples
+                1  // structure
+        );
+
+        String feedback = """
+        Strengths: Good understanding of core concepts
+        Improvements: Add more real-world examples
+        AI Confidence: High
         """;
 
-        // ✅ Save history
-        history.add(new EvaluationHistory(student, result));
+        EvaluationHistory result =
+                new EvaluationHistory(student, feedback, score);
 
+        history.add(result);
         return result;
     }
 
-    public List<EvaluationHistory> getAllHistory() {
+    public List<EvaluationHistory> getHistory() {
         return history;
-    }
-
-    public List<EvaluationHistory> getHistoryByStudent(String student) {
-        return history.stream()
-                .filter(h -> h.getStudentUsername().equals(student))
-                .toList();
     }
 }
