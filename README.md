@@ -4,13 +4,13 @@ This repository contains the **Spring Boot backend** for EduAI, handling authent
 
 ---
 
-## 🌐 Live Backend URL
+##  Live Backend URL
 
 🔗 https://eduai-backend-ez9q.onrender.com
 
 ---
 
-## 🚀 Features
+##  Features
 
 - User authentication (Student & Faculty)
 - Assignment submission APIs
@@ -30,13 +30,13 @@ This repository contains the **Spring Boot backend** for EduAI, handling authent
 
 ---
 
-## 📌 API Endpoints
+##  API Endpoints
 
-### 🔐 Authentication
+###  Authentication
 - `POST /api/auth/login`
 - `POST /api/auth/register`
 
-### 📄 Assignments
+###  Assignments
 - `POST /api/assignments/submit`
 - `GET /api/assignments/all`
 - `GET /api/assignments/count/{username}`
@@ -48,7 +48,7 @@ This repository contains the **Spring Boot backend** for EduAI, handling authent
 
 ---
 
-## ⚙️ Local Setup
+##  Local Setup
 
 ```bash
 git clone https://github.com/shruthinaluvala/eduai-backend.git
