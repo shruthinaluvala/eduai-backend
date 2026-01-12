@@ -1,0 +1,15 @@
+com\eduai\model\EvaluationHistory.class
+com\eduai\dto\EvaluationRequest.class
+com\eduai\dto\LoginRequest.class
+com\eduai\model\Assignment.class
+com\eduai\service\AiEvaluationService.class
+com\eduai\service\AuthService.class
+com\eduai\controller\AssignmentController.class
+com\eduai\dto\UserResponse.class
+com\eduai\model\AiScore.class
+com\eduai\controller\AiEvaluationController.class
+com\eduai\controller\AuthController.class
+com\eduai\repository\UserRepository.class
+com\eduai\service\AssignmentService.class
+com\eduai\EduAiApplication.class
+com\eduai\model\User.class

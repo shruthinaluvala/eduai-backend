@@ -1,43 +1,29 @@
 package com.eduai.service;
 
 import com.eduai.model.User;
+import com.eduai.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class AuthService {
 
-    // In-memory user store (temporary)
-    private final List<User> users = new ArrayList<>();
+    private final UserRepository userRepository;
 
-    // Preloaded users
-    public AuthService() {
-        users.add(new User("student1", "pass123", "Student"));
-        users.add(new User("student2", "pass123", "Student"));
-        users.add(new User("faculty1", "admin123", "Faculty"));
+    public AuthService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    // Login
-    public User authenticate(String username, String password) {
-        return users.stream()
-                .filter(u -> u.getUsername().equals(username)
-                        && u.getPassword().equals(password))
-                .findFirst()
-                .orElse(null);
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 
-    // Register (Sign-Up)
-    public User register(User newUser) {
-        boolean exists = users.stream()
-                .anyMatch(u -> u.getUsername().equals(newUser.getUsername()));
+    public User register(User user) {
+        return userRepository.save(user);
+    }
 
-        if (exists) {
-            throw new RuntimeException("Username already exists");
-        }
-
-        users.add(newUser);
-        return newUser;
+    public User login(String username, String password) {
+        return userRepository
+                .findByUsernameAndPassword(username, password)
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
     }
 }

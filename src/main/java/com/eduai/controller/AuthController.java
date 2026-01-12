@@ -4,9 +4,9 @@ import com.eduai.dto.LoginRequest;
 import com.eduai.dto.UserResponse;
 import com.eduai.model.User;
 import com.eduai.service.AuthService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -19,46 +19,41 @@ public class AuthController {
         this.authService = authService;
     }
 
-    // ✅ LOGIN (password NOT returned)
+    // ✅ LOGIN
     @PostMapping("/login")
-    public UserResponse login(@RequestBody LoginRequest request) {
-
-        User user = authService.authenticate(
+    public ResponseEntity<UserResponse> login(
+            @RequestBody LoginRequest request
+    ) {
+        User user = authService.login(
                 request.getUsername(),
                 request.getPassword()
         );
 
-        if (user == null) {
-            throw new RuntimeException("Invalid username or password");
-        }
-
-        return new UserResponse(
-                user.getUsername(),
-                user.getRole()
+        return ResponseEntity.ok(
+                new UserResponse(
+                        user.getUsername(),
+                        user.getRole()
+                )
         );
     }
 
-    // ✅ REGISTER (first-time users)
+    // ✅ REGISTER
     @PostMapping("/register")
-    public UserResponse register(@RequestBody User user) {
+    public ResponseEntity<?> register(@RequestBody User user) {
+
+        if (authService.existsByUsername(user.getUsername())) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("User already exists");
+        }
 
         User savedUser = authService.register(user);
 
-        return new UserResponse(
-                savedUser.getUsername(),
-                savedUser.getRole()
+        return ResponseEntity.ok(
+                new UserResponse(
+                        savedUser.getUsername(),
+                        savedUser.getRole()
+                )
         );
-    }
-
-    // ✅ FORGOT PASSWORD (MOCK IMPLEMENTATION)
-    @PostMapping("/forgot-password")
-    public String forgotPassword(@RequestBody Map<String, String> body) {
-
-        String username = body.get("username");
-
-        // Mock logic (email reset can be added later)
-        System.out.println("Password reset requested for user: " + username);
-
-        return "Password reset link sent (mock)";
     }
 }
