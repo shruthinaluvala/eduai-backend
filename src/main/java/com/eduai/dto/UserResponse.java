@@ -1,7 +1,6 @@
 package com.eduai.dto;
 
 public class UserResponse {
-
     private String username;
     private String role;
 

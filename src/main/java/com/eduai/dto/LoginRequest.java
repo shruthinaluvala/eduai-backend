@@ -1,7 +1,6 @@
 package com.eduai.dto;
 
 public class LoginRequest {
-
     private String username;
     private String password;
 
