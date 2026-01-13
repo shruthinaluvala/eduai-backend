@@ -1,79 +1,85 @@
 package com.eduai.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "assignments")
 public class Assignment {
 
-    // Student identity
-    private String studentUsername;
-    private String studentName;
-    private String rollNo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    // Academic structure
-    private String branch;     // CSE, IT, ECE, EEE, MECH
-    private int year;          // 1,2,3,4
-    private String subject;
+    /* ---------------------------
+       STUDENT DETAILS
+    --------------------------- */
+    private String username;   // 🔥 REQUIRED
+    private String title;
 
-    // File info
-    private String fileName;
+    @Column(length = 5000)
+    private String content;
 
-    // Lifecycle
-    private String status;     // SUBMITTED, REVIEWED, GRADED
-    private Integer score;     // 0–10
-    private String aiFeedback;
-    private String facultyRemark;
+    /* ---------------------------
+       METADATA
+    --------------------------- */
+    private Integer year;
+    private String branch;
+
     private LocalDateTime submittedAt;
 
-    // Default constructor
-    public Assignment() {}
+    /* ---------------------------
+       FACULTY REVIEW
+    --------------------------- */
+    private Integer score;
+    private String facultyRemark;
 
-    // Constructor used during submission
-    public Assignment(
-            String studentUsername,
-            String studentName,
-            String rollNo,
-            String branch,
-            int year,
-            String subject,
-            String fileName
-    ) {
-        this.studentUsername = studentUsername;
-        this.studentName = studentName;
-        this.rollNo = rollNo;
-        this.branch = branch;
-        this.year = year;
-        this.subject = subject;
-        this.fileName = fileName;
-
-        this.status = "SUBMITTED";
+    /* ---------------------------
+       AUTO TIMESTAMP
+    --------------------------- */
+    @PrePersist
+    public void onSubmit() {
         this.submittedAt = LocalDateTime.now();
-        this.aiFeedback = "AI: Good structure, add more real-world examples.";
     }
 
-    // ---------------- GETTERS & SETTERS ----------------
+    /* ---------------------------
+       GETTERS & SETTERS
+    --------------------------- */
 
-    public String getStudentUsername() {
-        return studentUsername;
+    public Long getId() {
+        return id;
     }
 
-    public void setStudentUsername(String studentUsername) {
-        this.studentUsername = studentUsername;
+    public String getUsername() {
+        return username;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public String getTitle() {
+        return title;
     }
 
-    public String getRollNo() {
-        return rollNo;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setRollNo(String rollNo) {
-        this.rollNo = rollNo;
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     public String getBranch() {
@@ -84,36 +90,8 @@ public class Assignment {
         this.branch = branch;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public LocalDateTime getSubmittedAt() {
+        return submittedAt;
     }
 
     public Integer getScore() {
@@ -124,27 +102,11 @@ public class Assignment {
         this.score = score;
     }
 
-    public String getAiFeedback() {
-        return aiFeedback;
-    }
-
-    public void setAiFeedback(String aiFeedback) {
-        this.aiFeedback = aiFeedback;
-    }
-
     public String getFacultyRemark() {
         return facultyRemark;
     }
 
     public void setFacultyRemark(String facultyRemark) {
         this.facultyRemark = facultyRemark;
-    }
-
-    public LocalDateTime getSubmittedAt() {
-        return submittedAt;
-    }
-
-    public void setSubmittedAt(LocalDateTime submittedAt) {
-        this.submittedAt = submittedAt;
     }
 }
