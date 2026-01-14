@@ -1,5 +1,6 @@
 C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\model\EvaluationHistory.java
 C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\controller\AssignmentController.java
+C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\repository\AssignmentRepository.java
 C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\service\AssignmentService.java
 C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\model\Assignment.java
 C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\dto\UserResponse.java
@@ -12,4 +13,3 @@ C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\controller\AuthCo
 C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\model\AiScore.java
 C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\EduAiApplication.java
 C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\dto\LoginRequest.java
-C:\Users\sruth\edu-ai-platform\Backend\src\main\java\com\eduai\service\AuthService.java

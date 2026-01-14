@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
 
-    long countByUsername(String username);
+    List<Assignment> findByStudentUsername(String studentUsername);
 
-    List<Assignment> findByUsername(String username);
+    long countByStudentUsername(String studentUsername);
 
-    List<Assignment> findByYearAndBranch(int year, String branch);
+    List<Assignment> findByStudyYearAndBranch(int StudyYear, String branch);
 }

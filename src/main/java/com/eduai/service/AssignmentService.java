@@ -15,60 +15,46 @@ public class AssignmentService {
         this.assignmentRepository = assignmentRepository;
     }
 
-    /* -------------------------------------------------
-       1️⃣ SUBMIT ASSIGNMENT
-    ------------------------------------------------- */
+    // Student submits assignment
     public void submitAssignment(Assignment assignment) {
+        assignment.setStatus("SUBMITTED");
         assignmentRepository.save(assignment);
     }
 
-    /* -------------------------------------------------
-       2️⃣ STUDENT – ASSIGNMENT COUNT
-    ------------------------------------------------- */
+    // Student dashboard count
     public long getAssignmentCount(String username) {
-        return assignmentRepository.countByUsername(username);
+        return assignmentRepository.countByStudentUsername(username);
     }
 
-    /* -------------------------------------------------
-       3️⃣ STUDENT – ASSIGNMENT HISTORY
-    ------------------------------------------------- */
+    // Student history
     public List<Assignment> getAssignmentsByStudent(String username) {
-        return assignmentRepository.findByUsername(username);
+        return assignmentRepository.findByStudentUsername(username);
     }
 
-    /* -------------------------------------------------
-       4️⃣ FACULTY – ALL ASSIGNMENTS
-    ------------------------------------------------- */
+    // Faculty dashboard
     public List<Assignment> getAllAssignments() {
         return assignmentRepository.findAll();
     }
 
-    /* -------------------------------------------------
-       5️⃣ FACULTY – FILTER BY YEAR + BRANCH
-    ------------------------------------------------- */
-    public List<Assignment> getAssignmentsByYearAndBranch(int year, String branch) {
-        return assignmentRepository.findByYearAndBranch(year, branch);
+    public List<Assignment> getAssignmentsByYearAndBranch(int StudyYear, String branch) {
+        return assignmentRepository.findByStudyYearAndBranch(StudyYear, branch);
     }
 
-    /* -------------------------------------------------
-   6️⃣ FACULTY – REVIEW ASSIGNMENT
-------------------------------------------------- */
+    // Faculty review
     public void reviewAssignment(Long id, String remark) {
-        Assignment assignment = assignmentRepository
-                .findById(id)
+        Assignment a = assignmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Assignment not found"));
-        assignment.setFacultyRemark(remark);
-        assignmentRepository.save(assignment);
+        a.setFacultyRemark(remark);
+        a.setStatus("REVIEWED");
+        assignmentRepository.save(a);
     }
 
-    /* -------------------------------------------------
-       7️⃣ FACULTY – GRADE ASSIGNMENT
-    ------------------------------------------------- */
+    // Faculty grade
     public void gradeAssignment(Long id, Integer score) {
-        Assignment assignment = assignmentRepository
-                .findById(id)
+        Assignment a = assignmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Assignment not found"));
-        assignment.setScore(score);
-        assignmentRepository.save(assignment);
+        a.setScore(score);
+        a.setStatus("GRADED");
+        assignmentRepository.save(a);
     }
 }
